@@ -217,14 +217,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   lia(DocumentSnapshot doc) {
    // print(doc['timestamp'].toDate().toString());
-   String formattedDate = DateFormat('yyyy-MM-dd').format(doc['timestamp'].toDate());
+   String formattedDate = DateFormat('dd-MM-yyyy').format(doc['timestamp'].toDate());
    
     return Container(
       
       child: ListTile(
         onTap: () {
           if (doc['type'] == 's') {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {
                 return mp.Persona(
@@ -249,16 +249,16 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         title: Container(child: Text(doc.documentID)),
         trailing:Container(child:Text(formattedDate)),
-        subtitle: Container(
-          height: 0.3,
-          color: Colors.grey[800],
-        ),
+        // subtitle: Container(
+        //   height: 0.3,
+        //   color: Colors.grey[800],
+        // ),
       ),
     );
   }
 
   lic(DocumentSnapshot doc) {
-     String formattedDate = DateFormat('yyyy-MM-dd ').format(doc['timestamp'].toDate());
+     String formattedDate = DateFormat('dd-MM-yyyy ').format(doc['timestamp'].toDate());
 
     return Container(
       child: ListTile(
@@ -267,10 +267,10 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         title: Container(child: Text(doc.documentID)),
          trailing:Container(child:Text(formattedDate)),
-        subtitle: Container(
-          height: 0.3,
-          color: Colors.grey[800],
-        ),
+        // subtitle: Container(
+        //   height: 0.3,
+        //   color: Colors.grey[800],
+        // ),
       ),
     );
   }

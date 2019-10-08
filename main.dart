@@ -29,34 +29,48 @@ String uname;
 String photo;
 double width = 300;
 double height = 300;
-FirebaseAnalytics analytics = FirebaseAnalytics();
+
 
  man() async {
   // Fetch the available cameras before initializing the app.
 
-    cameras = await availableCameras();
     
  
 }
 void main() {
 
+ FirebaseAnalytics analytics = new FirebaseAnalytics();
+ FirebaseAnalyticsObserver observer =
+      new FirebaseAnalyticsObserver(analytics: analytics);
+
   man();
   runApp(
     MaterialApp(
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
-      ],
-      home: LoginPage(),
+     navigatorObservers: <NavigatorObserver>[observer],
+      home: LoginPage(analytics:analytics,observer:observer),
     ),
   );
 }
 
 class LoginPage extends StatefulWidget {
+
+FirebaseAnalytics analytics;
+FirebaseAnalyticsObserver observer;
+
+LoginPage({this.analytics,this.observer});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  FirebaseAnalytics analytics;
+FirebaseAnalyticsObserver observer;
+
+_LoginPageState({this.analytics,this.observer});
+
+
   bool isLoggedIn;
   var profileData;
   PageController pageController = PageController();
@@ -172,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
           context,
           MaterialPageRoute(builder: (context) {
             // return ms.MyHomePage();
-            return ms.TabsDemoScreen();
+            return ms.TabsDemoScreen(analytics: analytics,observer: observer);
           }),
         );
 
@@ -226,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
           context,
           MaterialPageRoute(builder: (context) {
             // return ms.MyHomePage();
-            return ms.TabsDemoScreen();
+            return ms.TabsDemoScreen(analytics: analytics,observer: observer);
           }),
         );
         break;
@@ -471,7 +485,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) {
-          return ms.TabsDemoScreen();
+          return ms.TabsDemoScreen(analytics: analytics,observer: observer);
         }),
       );
     } else {

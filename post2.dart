@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:example/people_new.dart';
+// import 'package:example/people_new.dart';
 import 'package:flutter/material.dart';
 import 'profile.dart' as profile;
 import 'video3.dart' as video;
@@ -75,18 +75,20 @@ class Post {
 
 class MyHomePage extends StatefulWidget {
   DocumentSnapshot snap;
-  MyHomePage({Key key, this.snap}) : super(key: key);
+  final GlobalKey<ScaffoldState> skey;
+  MyHomePage({Key key, this.snap,this.skey}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(snaps: snap);
+  _MyHomePageState createState() => _MyHomePageState(snaps: snap,skey:skey);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> skey;
   bool exist = false;
   bool loading = true;
   bool reveal = false;
   DocumentSnapshot snaps;
-  _MyHomePageState({Key key, this.snaps});
+  _MyHomePageState({Key key, this.snaps,this.skey});
   void initState() {
     super.initState();
     current = 0.0;
@@ -357,6 +359,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void rat(Post post) {
+
+      setState(() {
+      reveal = !reveal;
+    });
+
     double tot;
     int toot;
     tot = post.dou * post.nopr;
@@ -376,14 +383,12 @@ class _MyHomePageState extends State<MyHomePage> {
     Firestore.instance.collection("RATING").add(
         {"user": login.uid, "post": snaps.documentID, "rating": ating.round()});
 
-    Scaffold.of(context).showSnackBar(SnackBar(
-      content: Text('The post has been  rated'),
+    widget.skey.currentState.showSnackBar(SnackBar(
+      content: Text('The post has been rated'),
       duration: Duration(seconds: 2),
     ));
 
-    setState(() {
-      reveal = !reveal;
-    });
+  
   }
 
   row(Post post, double curre) {
@@ -395,7 +400,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // star(),
         // extended(),
         // extended1(post),
-        Container(child:Column(
+       GestureDetector(
+          onTap: () {
+          setState(() {
+            reveal = !reveal;
+            ating = 0;
+          });
+        },
+         child: Row(children:[
+           Container(child:Column(
 
           children: <Widget>[
               Icon(
@@ -412,11 +425,25 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.grey[600],
           ),
         ),
-          extended(),
-          extended1(post)
-
+          
           ],
         )),
+      (reveal==false)?( Center(child:Text(
+          "RATE",
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Open Sans',
+            color: Colors.grey[600],
+          ),
+        ),)):Center(),
+
+
+        ])),
+        
+        extended(),
+          extended1(post)
+
         
       ],
     );
@@ -433,7 +460,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(
           Icons.star,
           size: 33,
-          color: Colors.grey[500],
+          color: Colors.yellow[600],
         ));
   }
 
@@ -460,11 +487,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   extended1(Post post) {
-    // if (!reveal) {
-    //   return Container();
-    // } else
+    if (!reveal) {
+      return Container();
+    } else
       return GestureDetector(
         onTap: () async {
+         // reveal=!reveal;
           print("ontap");
           final QuerySnapshot result = await Firestore.instance
               .collection('RATING')
@@ -474,30 +502,25 @@ class _MyHomePageState extends State<MyHomePage> {
               .getDocuments();
           final List<DocumentSnapshot> documents = result.documents;
           if (documents.length == 1) {
-            Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text('You  have already Rated this post'),
+            widget.skey.currentState.showSnackBar(SnackBar(
+              content: Text('You have already Rated this post'),
               duration: Duration(seconds: 2),
             ));
+             setState(() {
+      reveal = !reveal;
+    });
+            
           } else {
             rat(post);
           }
-          //     ((a) {
-          //       print(a.documents.isEmpty);
-          //   exist = a.documents.isEmpty;
-          // });
-          // await print(exist);print("here");
-          // if (d) {print("exiiiists");}
-          //     else{print(d);print("check");print(login.uid);print(snaps.documentID);
-          //    // rat(post);
-          //     }
         },
         child:Text(
           "RATE",
           style: TextStyle(
             fontSize: 14.0,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w800,
             fontFamily: 'Open Sans',
-            color: Colors.grey[600],
+            color: Colors.yellow[600],
           ),
         ),
       );

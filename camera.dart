@@ -35,7 +35,7 @@
   
         if (cameras.length > 0) {
           setState(() {
-            selectedCameraIdx = 0;
+            selectedCameraIdx = 1;
           });
   
           _onCameraSwitched(cameras[selectedCameraIdx]).then((void v) {});

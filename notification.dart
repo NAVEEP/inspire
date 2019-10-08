@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ? Center(
                         child: Column(
                         children: <Widget>[
-                          Image.asset('assets/notif_filler.png',scale:0.8),
+                          Image.asset('assets/notif_filler.png',scale:0.5),
                         Padding(padding: EdgeInsets.all(10),child: Text("No New Notification to show.",style: TextStyle(color: Color(0XFF9C9C9C), fontSize: 23),),)],
                       ))
                     : ListView(

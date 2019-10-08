@@ -9,7 +9,7 @@ import 'notification.dart' as notif;
 import 'package:highlighter_coachmark/highlighter_coachmark.dart';
 import 'dart:async';
 import 'main.dart' as login;
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -74,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     if (!load && d == 0) {
       return Icon(
-        Icons.notifications,
+        Icons.notifications
+        ,
         color: Color(0XFF9C9C9C),
       );
     } else
@@ -132,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     IconButton(
                       icon: Icon(
                        // not(),
-                       Icons.notifications_active,
+                       Icons.notifications,
                         color: Color(0XFF9C9C9C),
                       ),
                       onPressed: () {
@@ -153,12 +154,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     // ),
                      ), ],
                 ),
-                body: SafeArea(child:Column(children:<Widget>[ListView(
+                body: SafeArea(child:
+                // Column(children:<Widget>[
+                  ListView(
                   children:
                       snapshot.data.documents.map((DocumentSnapshot document) {
                     return  Tile(document.documentID,fabKey);
                   }).toList(),
-                ),SizedBox(height:50)],),),
+                ),
+                // SizedBox(height:50)
+                // ],
+                // ),
+                ),
               );
           }
         });
@@ -469,7 +476,9 @@ class _MyHomePage extends State<MyHome> {
         tim = true;
       });
     });
-    return StreamBuilder<QuerySnapshot>(
+    return Padding(
+      padding:EdgeInsets.fromLTRB(0,0,0,30),
+      child: StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection("CATEGORIES")
           .document(cnam)
@@ -494,7 +503,7 @@ class _MyHomePage extends State<MyHome> {
             ),
           );
       },
-    );
+    ),);
   }
 
   card(DocumentSnapshot name) {

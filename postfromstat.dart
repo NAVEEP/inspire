@@ -27,7 +27,7 @@ class Post {
   final String mtype;
   final String id;
 
-  final DateTime datetime;
+  // final DateTime datetime;
 
   Post({
     this.uname,
@@ -40,7 +40,7 @@ class Post {
     this.user_url,
     this.media_url,
     this.mtype,
-    this.datetime,
+    // this.datetime,
     this.dou,
     this.stars,
     this.rating,
@@ -62,7 +62,7 @@ class Post {
       mtype: document['mtype'],
       media_url: document['media_url'],
       user_url: document['user_url'],
-      datetime: document['timestamp'],
+      // datetime: document['timestamp'],
       stars: document['stars'],
       rating: document['rating'],
       nopr: document['nopr'],
@@ -177,21 +177,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ],
                                 )),
                               )),
-                          Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: Text(
-                              DateTime.now()
-                                  .difference(post.datetime)
-                                  .inHours
-                                  .toString()+" hrs ago",
-                              style: TextStyle(
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: 'Segoe UI',
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.all(5.0),
+                          //   child: Text(
+                          //     DateTime.now()
+                          //         .difference(post.datetime)
+                          //         .inHours
+                          //         .toString()+" hrs ago",
+                          //     style: TextStyle(
+                          //       fontSize: 13.0,
+                          //       fontWeight: FontWeight.w300,
+                          //       fontFamily: 'Segoe UI',
+                          //       color: Colors.black,
+                          //     ),
+                          //   ),
+                          // ),
                           Padding(
                             padding: EdgeInsets.all(5.0),
                             child: Icon(

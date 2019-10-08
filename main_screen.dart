@@ -17,22 +17,35 @@ import 'camera.dart' as camera;
 import 'gallery.dart' as gallery;
 import 'camera_video.dart' as video;
 import 'onboard.dart' as onboard;
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 
 final feature1 = "FEATURE_1";
 final feature2 = "FEATURE_2";
 
 
 class TabsDemoScreen extends StatefulWidget {
+
+  FirebaseAnalytics analytics;
+FirebaseAnalyticsObserver observer;
+
+TabsDemoScreen({this.analytics,this.observer});
+
   // String uname;
-  TabsDemoScreen();
+  
 
   @override
-  TabsDemoScreenState createState() => TabsDemoScreenState();
+  TabsDemoScreenState createState() => TabsDemoScreenState(analytics: analytics,observer: observer);
 }
 
 class TabsDemoScreenState extends State<TabsDemoScreen> {
+
+  FirebaseAnalytics analytics;
+FirebaseAnalyticsObserver observer;
+
+TabsDemoScreenState({this.analytics,this.observer});
   // String uname;
-  TabsDemoScreenState();
+  //TabsDemoScreenState();
  int currentTabIndex =0;
   void initState() {
     
@@ -226,4 +239,3 @@ class TabsDemoScreenState extends State<TabsDemoScreen> {
 //     ),);
 //   }
 // }
-

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker_modern/image_picker_modern.dart';
 import 'MakePostA.dart' as post1;
 import 'MakePostB.dart' as post;
-
+import 'package:url_launcher/url_launcher.dart';
 import 'main.dart' as login;
 import 'dart:async';
 import 'uploadvid.dart' as camera;
@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final bool show;
 
   _MyHomePageState(this.cname, this.image, this.show);
-  String description, scat, level, tag, media = '', mtype = '';
+  String description, scat, level, tag, media = '', mtype = '',url='';
   GlobalKey fabKey = GlobalObjectKey("fab");
   bool show1 = false;
   bool state = false;
@@ -61,6 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
           a['media'].toString().isNotEmpty) {
         media = a['media'];
         mtype = a['mtype'];
+      }
+      if (a['url'].toString().isNotEmpty ) {
+        url = a['url'];
+        
       }
       setState(() {
         print(media);
@@ -137,6 +141,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     fontFamily: 'Segoe UI',
                                     color: Colors.grey[800]),
                               ),
+                            ),
+                            Padding(padding: EdgeInsets.fromLTRB(16.0, 10.0, 0.0, 20.0),
+                            child: link(),
+                            
                             ),
                             Padding(
                               padding: EdgeInsets.all(12.0),
@@ -277,20 +285,21 @@ new ListTile(
               );
             }          
           ),
-          new ListTile(
-            leading: new Icon(Icons.camera_alt),
-            title: new Text('Camera'),
-            onTap: ()  {
+//           new ListTile(
+//             leading: new Icon(Icons.camera_alt),
+//             title: new Text('Camera'),
+//             onTap: ()  {
 
-Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return camera.CameraExampleHome(cname:cname,scat:scat,level:level);
-                }),
-              );
+// Navigator.pushReplacement(
+//                 context,
+//                 MaterialPageRoute(builder: (context) {
+//                   return camera.CameraExampleHome();
+//                     //cname:cname,scat:scat,level:level);
+//                 }),
+//               );
               
-            },          
-          ),
+//             },          
+//           ),
           new ListTile(
             leading: new Icon(Icons.camera),
             title: new Text('Image | Gallery'),
@@ -359,6 +368,17 @@ Navigator.pushReplacement(
       return Image.network(
         image,
         fit: BoxFit.fill,
+      );
+    }
+  }
+   link() {
+    if (url == '') {
+      return Container();
+    } else {
+      return GestureDetector(onTap: (){
+        launch(url);
+      },
+      child:Text(url,style: TextStyle(color:Colors.blue,decoration: TextDecoration.underline),),
       );
     }
   }
