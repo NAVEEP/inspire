@@ -64,10 +64,15 @@ class _SearchPage extends State<SearchPage> {
       });
     });
   }
+    void initState() {
+    
+    Firestore.instance.collection("SearchLogger").add({"name":login.uname,'time':DateTime.now()});
+  }
 
   @override
   Widget build(BuildContext context) {
     print("inside scaffold");
+
     return SafeArea(
       child: Scaffold(
           drawer: drawer.drawer(context),

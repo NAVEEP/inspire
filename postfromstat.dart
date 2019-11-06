@@ -27,7 +27,7 @@ class Post {
   final String mtype;
   final String id;
 
-  // final DateTime datetime;
+  final DateTime datetime;
 
   Post({
     this.uname,
@@ -40,7 +40,7 @@ class Post {
     this.user_url,
     this.media_url,
     this.mtype,
-    // this.datetime,
+    this.datetime,
     this.dou,
     this.stars,
     this.rating,
@@ -62,7 +62,7 @@ class Post {
       mtype: document['mtype'],
       media_url: document['media_url'],
       user_url: document['user_url'],
-      // datetime: document['timestamp'],
+      datetime: document['timestamp'].toDate(),
       stars: document['stars'],
       rating: document['rating'],
       nopr: document['nopr'],
@@ -177,209 +177,232 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ],
                                 )),
                               )),
-                          // Padding(
-                          //   padding: EdgeInsets.all(5.0),
-                          //   child: Text(
-                          //     DateTime.now()
-                          //         .difference(post.datetime)
-                          //         .inHours
-                          //         .toString()+" hrs ago",
-                          //     style: TextStyle(
-                          //       fontSize: 13.0,
-                          //       fontWeight: FontWeight.w300,
-                          //       fontFamily: 'Segoe UI',
-                          //       color: Colors.black,
-                          //     ),
-                          //   ),
-                          // ),
                           Padding(
                             padding: EdgeInsets.all(5.0),
-                            child: Icon(
-                              Icons.more_vert,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Container(
-                          // height: 150.0,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          child: (post.mtype == 'v')
-                              ? Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  height: 400.0,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ),
-                                  child: video.VideoApp(url: post.media_url))
-                              : Image.network(
-                                  post.media_url,
-                                  fit: BoxFit.cover,
-                                ),
-                        )),
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            post.body,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w300,
-                              fontFamily: 'Segoe UI',
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Container(
-                              height: 1.0,
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.grey[600]),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.all(0.0),
-                        child: Column(
-                          children: <Widget>[
-                            // SizedBox(
-                            //   height: 10.0,
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 0.0, 15.0),
-                              child: row(post, current),
-                            ),
-                          ],
-                        )),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),),);
-    }
-  }
+                            child: Text(
+                              timediff(post),
+                                                            style: TextStyle(
+                                                              fontSize: 13.0,
+                                                              fontWeight: FontWeight.w300,
+                                                              fontFamily: 'Segoe UI',
+                                                              color: Colors.black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: EdgeInsets.all(5.0),
+                                                          child: Icon(
+                                                            Icons.more_vert,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                      padding: EdgeInsets.all(10.0),
+                                                      child: Container(
+                                                        // height: 150.0,
+                                                        width: MediaQuery.of(context).size.width,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(18.0),
+                                                        ),
+                                                        child: (post.mtype == 'v')
+                                                            ? Container(
+                                                                padding: EdgeInsets.all(10.0),
+                                                                height: 400.0,
+                                                                width: MediaQuery.of(context).size.width,
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.black,
+                                                                  borderRadius: BorderRadius.circular(18.0),
+                                                                ),
+                                                                child: video.VideoApp(url: post.media_url))
+                                                            : Image.network(
+                                                                post.media_url,
+                                                                fit: BoxFit.cover,
+                                                              ),
+                                                      )),
+                                                  Padding(
+                                                    padding: EdgeInsets.all(10.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          post.body,
+                                                          style: TextStyle(
+                                                            fontSize: 14.0,
+                                                            fontWeight: FontWeight.w300,
+                                                            fontFamily: 'Segoe UI',
+                                                            color: Colors.grey[700],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5.0,
+                                                        ),
+                                                        Container(
+                                                            height: 1.0,
+                                                            width: MediaQuery.of(context).size.width,
+                                                            color: Colors.grey[600]),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                      padding: EdgeInsets.all(0.0),
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          // SizedBox(
+                                                          //   height: 10.0,
+                                                          // ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.fromLTRB(
+                                                                20.0, 0.0, 0.0, 15.0),
+                                                            child: row(post, current),
+                                                          ),
+                                                        ],
+                                                      )),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),),);
+                                  }
+                                }
+                              
+                                void rat(Post post) {
+                                  print("rating  " + r.toString());
+                                  double tot;
+                                  int toot;
+                                  tot = post.dou * post.nopr;
+                                  tot = tot + ating;
+                                  post.nopr++;
+                                  tot = (tot / post.nopr);
+                                  tot = tot * 100;
+                                  toot = tot.round();
+                                  tot = toot / 100;
+                                  Firestore.instance
+                                      .collection("POST")
+                                      .document(snaps.documentID)
+                                      .updateData({
+                                    "dou": tot,
+                                    "nopr": post.nopr,
+                                  });
+                                  Firestore.instance.collection("RATING").add(
+                                      {"user": login.uid, "post": snaps.documentID, "rating": ating.round()});
+                                }
+                              
+                                row(Post post, double curre) {
+                                  return Row(
+                                    children: <Widget>[
+                                      star(),
+                                      extended(),
+                                      extended1(post),
+                                      Text(
+                                        curre.toString(),
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Segoe UI',
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              
+                                star() {
+                                
+                                    return GestureDetector(
+                                        onTap: () {
+                                          
+                                        },
+                                        child: Icon(
+                                          Icons.star,
+                                          size: 40.0,
+                                          color: Colors.grey[600],
+                                        ));
+                                }
+                              
+                                extended() {
+                                  if (!reveal) {
+                                    return Container();
+                                  } else {
+                                    return SmoothStarRating(
+                                      borderColor: Colors.grey[600],
+                                      color: Colors.yellow,
+                                      allowHalfRating: false,
+                                      rating: ating,
+                                      size: 40.0,
+                                      starCount: 5,
+                                      spacing: 2.0,
+                                      onRatingChanged: (value) {
+                                        setState(() {
+                                          ating = value;
+                                        });
+                                      },
+                                    );
+                                  }
+                                }
+                              
+                                extended1(Post post) {
+                                  if (!reveal) {
+                                    return Container();
+                                  } else
+                                    return GestureDetector(
+                                      onTap: () async {
+                                        print("ontap");
+                                        final QuerySnapshot result = await Firestore.instance
+                                            .collection('RATING')
+                                            .where('user', isEqualTo: login.uid)
+                                            .where('post', isEqualTo: post.id)
+                                            .limit(1)
+                                            .getDocuments();
+                                        final List<DocumentSnapshot> documents = result.documents;
+                                        if (documents.length == 1) {
+                                          Scaffold.of(context).showSnackBar(SnackBar(
+                                            content: Text('You  have already Rated this post'),
+                                            duration: Duration(seconds: 2),
+                                          ));
+                                        } else {
+                                          rat(post);
+                                        }
+                                        //     ((a) {
+                                        //       print(a.documents.isEmpty);
+                                        //   exist = a.documents.isEmpty;
+                                        // });
+                                        // await print(exist);print("here");
+                                        // if (d) {print("exiiiists");}
+                                        //     else{print(d);print("check");print(login.uid);print(snaps.documentID);
+                                        //    // rat(post);
+                                        //     }
+                                      },
+                                      child: Icon(Icons.navigate_next),
+                                    );
+                                }
+                              
+                                String timediff(Post post) {
+    int th = DateTime.now().difference(post.datetime).inHours;
+    int td = DateTime.now().difference(post.datetime).inDays;
+    double week = td / 7;
+    int tw = week.round();
+    if (th < 24) {
+      if (th == 0)
+        return "just now";
 
-  void rat(Post post) {
-    print("rating  " + r.toString());
-    double tot;
-    int toot;
-    tot = post.dou * post.nopr;
-    tot = tot + ating;
-    post.nopr++;
-    tot = (tot / post.nopr);
-    tot = tot * 100;
-    toot = tot.round();
-    tot = toot / 100;
-    Firestore.instance
-        .collection("POST")
-        .document(snaps.documentID)
-        .updateData({
-      "dou": tot,
-      "nopr": post.nopr,
-    });
-    Firestore.instance.collection("RATING").add(
-        {"user": login.uid, "post": snaps.documentID, "rating": ating.round()});
-  }
-
-  row(Post post, double curre) {
-    return Row(
-      children: <Widget>[
-        star(),
-        extended(),
-        extended1(post),
-        Text(
-          curre.toString(),
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Segoe UI',
-            color: Colors.grey[600],
-          ),
-        ),
-      ],
-    );
-  }
-
-  star() {
-  
-      return GestureDetector(
-          onTap: () {
-            
-          },
-          child: Icon(
-            Icons.star,
-            size: 40.0,
-            color: Colors.grey[600],
-          ));
-  }
-
-  extended() {
-    if (!reveal) {
-      return Container();
+      else if (th == 1)
+        return "1 hour ago";
+      else
+        return th.toString() + " hours ago";
+    } else if (td < 7) {
+      if (td == 1)
+        return "1 day ago";
+      else
+        return td.toString() + " days ago";
     } else {
-      return SmoothStarRating(
-        borderColor: Colors.grey[600],
-        color: Colors.yellow,
-        allowHalfRating: false,
-        rating: ating,
-        size: 40.0,
-        starCount: 5,
-        spacing: 2.0,
-        onRatingChanged: (value) {
-          setState(() {
-            ating = value;
-          });
-        },
-      );
+      if (tw == 1)
+        return "1 week ago";
+      else
+        return tw.toString() + " weeks ago";
     }
-  }
-
-  extended1(Post post) {
-    if (!reveal) {
-      return Container();
-    } else
-      return GestureDetector(
-        onTap: () async {
-          print("ontap");
-          final QuerySnapshot result = await Firestore.instance
-              .collection('RATING')
-              .where('user', isEqualTo: login.uid)
-              .where('post', isEqualTo: post.id)
-              .limit(1)
-              .getDocuments();
-          final List<DocumentSnapshot> documents = result.documents;
-          if (documents.length == 1) {
-            Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text('You  have already Rated this post'),
-              duration: Duration(seconds: 2),
-            ));
-          } else {
-            rat(post);
-          }
-          //     ((a) {
-          //       print(a.documents.isEmpty);
-          //   exist = a.documents.isEmpty;
-          // });
-          // await print(exist);print("here");
-          // if (d) {print("exiiiists");}
-          //     else{print(d);print("check");print(login.uid);print(snaps.documentID);
-          //    // rat(post);
-          //     }
-        },
-        child: Icon(Icons.navigate_next),
-      );
   }
 }

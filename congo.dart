@@ -86,12 +86,22 @@ _shareImage(var file1) async {
               mainAxisAlignment: MainAxisAlignment.start, children: [
               Stack(
                 children:[
+
                   Container(
                   height: height/2.2,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/done.png'),
+                        image: AssetImage('assets/con2.gif'),
+                          // image: AssetImage('assets/done.png'),
+                          fit: BoxFit.cover))),
+                          Container(
+                  height: height/2.2,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        // image: AssetImage('assets/con2.gif'),
+                          image: AssetImage('assets/done1.png'),
                           fit: BoxFit.cover))),
                           // Container(
                           //       height: height/2.2,

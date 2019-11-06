@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
 import 'package:image/image.dart' as im;
-import 'package:image_picker_modern/image_picker_modern.dart';
+// import 'package:image_picker_modern/image_picker_modern.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
@@ -252,14 +252,16 @@ class _PersonaState extends State<Persona> {
     });
   }
 
-  Future getImageg() async {
+  Future getImageg() 
+  // async
+   {
    // var tImage;
-    var tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+    // var tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
    
-    // // // var tempImage = await ImagePicker.pickVideo(source: ImageSource.camera,);
-    setState(() {
-      samplei = tempImage;
-    });
+    // // // // var tempImage = await ImagePicker.pickVideo(source: ImageSource.camera,);
+    // setState(() {
+    //   samplei = tempImage;
+    // });
     
   }
   
@@ -267,16 +269,16 @@ class _PersonaState extends State<Persona> {
   Future getImagec() async {
 
     //if (await checkAndRequestCameraPermissions()){
-      var tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
+    //   var tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
 
-    // // //print("camera source");
+    // // // //print("camera source");
     
-    // // // var tempImage = await ImagePicker.pickVideo(source: ImageSource.camera,);
-    setState(() {
+    // // // // var tempImage = await ImagePicker.pickVideo(source: ImageSource.camera,);
+    // setState(() {
 
-      print("in set state of camera");
-      samplei = tempImage;
-    });
+    //   print("in set state of camera");
+    //   samplei = tempImage;
+    // });
     //}
                       // im.Image image = im.decodeImage(tempImage.readAsBytesSync());
                       // im.Image thumbnail = im.copyResize(image, width: 320);

@@ -6,8 +6,6 @@ import 'main.dart' as login;
 void main() {
   runApp(MyHomePage());
 }
-
-var _scaffoldKey= new GlobalKey<ScaffoldState>();
 class MyHomePage extends StatefulWidget {
   MyHomePage({
     Key key,
@@ -31,9 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
             case ConnectionState.waiting:
               return Scaffold(body: Center(child: Text('Loading...')));
             default:
-              return Scaffold(
-                key:_scaffoldKey,
-                body:
+              return Scaffold(body:
               // PageView.builder(
               //       controller: PageController(),
               //       scrollDirection: Axis.vertical,
@@ -66,7 +62,7 @@ class Tile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: post.MyHomePage(snap: document,skey:_scaffoldKey));}}
+      child: post.MyHomePage(snap: document,));}}
 class MyHome extends StatefulWidget {
   MyHome({
     Key key,

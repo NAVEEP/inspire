@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'post2.dart' as post;
 import 'main.dart' as login;
 
-var _scaffoldKey= new GlobalKey<ScaffoldState>();
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({
     Key key,
@@ -17,7 +15,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
-      key:_scaffoldKey,
       body: buildActivityFeed(),
     );
   }
@@ -97,12 +94,12 @@ class FeedState extends State<Feed> {
               child: Column(
               children: <Widget>[
                 Image.asset(
-                  'assets/feed_filler.png',scale:0.5,
+                  'assets/feed_filler.png',
                 ),
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                      "No Posts yet .\n Start getting inspired by people to see their posts.",style: TextStyle(color: Color(0XFF9C9C9C), fontSize: 23),),
+                      "No Posts yet.\nStart getting inspired by people to see their posts.",style: TextStyle(color: Color(0XFF9C9C9C), fontSize: 23),),
                 )
               ],
             ))
@@ -133,7 +130,7 @@ class FeedState extends State<Feed> {
           .then((pos) {
         print(pos.data);
         item.add(post.MyHomePage(
-          snap: pos,skey:_scaffoldKey,
+          snap: pos,
         ));
       });
     }
