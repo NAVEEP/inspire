@@ -5,6 +5,8 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'main.dart' as main;
+import 'package:flutter/material.dart';
+import 'main_screen.dart' as ms;
 
 class AuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -32,7 +34,7 @@ class AuthService {
     });
   }
 
-  Future<FirebaseUser> googleSignIn() async {
+  Future<FirebaseUser> googleSignIn(con) async {
 
     print("inside auth service");
     
@@ -47,26 +49,37 @@ class AuthService {
       );
 
       FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
-     // updateUserData(user);
+     updateUserData(user);
       print("user name: ${user.displayName}");
-    //   final prefs = await SharedPreferences.getInstance();
+      final prefs = await SharedPreferences.getInstance();
 
-    // prefs.setBool("exist", true);
-    // prefs.setString("uid", user.uid);
-    // prefs.setString("uname", user.displayName);
-    // prefs.setString("photo", user.photoUrl);
+    prefs.setBool("exist", true);
+    prefs.setString("uid", user.uid);
+    prefs.setString("uname", user.displayName);
+    prefs.setString("photo", user.photoUrl);
 
         
          
-    //    //break;
+       //break;
     
-    // main.uid = user.uid;
-    // main.uname =user.displayName;
-    // main.photo = user.photoUrl;
+    main.uid = user.uid;
+    main.uname =user.displayName;
+    main.photo = user.photoUrl;
+
+    Navigator.pushReplacement(
+                              con,
+                              MaterialPageRoute(builder: (context) {
+                                // return ms.MyHomePage();
+                                return ms.TabsDemoScreen();
+                              }),
+                            );
+
+
 
        loading.add(false);
       return user;
-    // } catch (error) {
+    // }
+    //  catch (error) {
     //   return error;
     // }
 

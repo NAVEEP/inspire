@@ -9,14 +9,13 @@ import 'notification.dart' as notif;
 import 'package:highlighter_coachmark/highlighter_coachmark.dart';
 import 'dart:async';
 import 'main.dart' as login;
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyHomePage());
 }
 
-// class MyApp extends StatelessWidget {
+// class MyApp extends  {
 //   MyApp({
 //     Key key,
 //   }) : super(key: key);
@@ -117,22 +116,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   // backgroundColor: Colors.deepOrange,
                   actions: <Widget>[
-                    IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          color: Color(0XFF9C9C9C),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => search.SearchPage()),
-                          );
-                        }),
+                    // IconButton(
+                    //     icon: Icon(
+                    //       Icons.search,
+                    //       color: Color(0XFF9C9C9C),
+                    //     ),
+                    //     onPressed: () {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => search.SearchPage()),
+                    //       );
+                    //     }),
                     IconButton(
                       icon: Icon(
                        // not(),
-                       Icons.notifications_active,
+                       Icons.notifications,
                         color: Color(0XFF9C9C9C),
                       ),
                       onPressed: () {
@@ -153,12 +152,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     // ),
                      ), ],
                 ),
-                body: SafeArea(child:Column(children:<Widget>[ListView(
+                body: SafeArea(child:Padding(
+                  padding: EdgeInsets.fromLTRB(0,0,0,50),
+                  child:ListView(
                   children:
                       snapshot.data.documents.map((DocumentSnapshot document) {
                     return  Tile(document.documentID,fabKey);
                   }).toList(),
-                ),SizedBox(height:50)],),),
+                ),),),
               );
           }
         });

@@ -193,7 +193,7 @@ class Tile extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(0),
-                child: Text(
+                child: n==0||n==null?Container():Text(
                   'Inspiring $n people' ?? "",
                   style: TextStyle(fontWeight: FontWeight.w200, fontSize: 14),
                 ),

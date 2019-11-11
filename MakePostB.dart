@@ -31,7 +31,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
   MyHomeState(this.image,this.type,this.cname,this.scat,this.level);
 
   TextEditingController myController;
-  String description;
+  String description='';
 
  StorageUploadTask task1;
   
@@ -75,13 +75,14 @@ void _handleRadioValueChange1(int value) {
                 data: new ThemeData(
                   primaryColor: Color(0xffe73131),
                   primaryColorDark: Color(0xffe73131),
-                ),child:RaisedButton(onPressed: (){
+                ),
+          child:RaisedButton(onPressed: (){
             String timenow = DateTime.now().toString();
             String postname = main.uid + timenow;
-
+            print("1");
             if(type!='v')
             {
-
+              print("2");
               Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) {
@@ -90,12 +91,14 @@ void _handleRadioValueChange1(int value) {
           );
         }),
       );
+      print("3");
               File thumbsamplei=image;
 
              imag.Image image1 = imag.decodeImage(image.readAsBytesSync());
-                      imag.Image thumbnail = imag.copyResize(image1, width: 320);
+             print("4");
+                      imag.Image thumbnail = imag.copyResize(image1, width: 120);
                       print(thumbnail);
-                       thumbsamplei..writeAsBytesSync(imag.encodeJpg(thumbnail,quality: 95));
+                      //  thumbsamplei..writeAsBytesSync(imag.encodeJpg(thumbnail,quality: 95));
                        print("thumbnail ban gaya ");
                       final StorageReference firebaseStorageRef1 =
                         FirebaseStorage.instance.ref().child(postname);
@@ -163,18 +166,12 @@ void _handleRadioValueChange1(int value) {
        children:[ Column(
       children: <Widget>[
          Padding(padding: EdgeInsets.only(top: 10.0)),
-       // Divider(color: Colors.black,height: 0.6),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-          
-            // CircleAvatar(
-            //   backgroundImage: NetworkImage(main.photo),
-            // ),
               Container(
               margin: EdgeInsets.all(10.0),
               height: 70.0,
-              
               width: MediaQuery.of(context).size.width/1.09,
               child: Theme(
                 data: new ThemeData(
@@ -199,43 +196,7 @@ void _handleRadioValueChange1(int value) {
               ),
             ),
           ],),
-         // Divider(color: Colors.grey,height: 0.4),
-           //Padding(padding: EdgeInsets.only(top: 10.0)),
-         
-            //SizedBox(height:35.0),
-
-           // SizedBox(height: 10.0),
-            // Container(
-            //   height: 20.0,
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [
-            //       Text(
-            //         "Tags attached",
-            //         style: TextStyle(
-            //             color: Colors.pinkAccent,
-            //             fontWeight: FontWeight.w500,
-            //             fontSize: 16.0,
-            //             fontFamily: 'Segoe UI'),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             SizedBox(height: 0.0),
-          //  Row(
-          //    mainAxisAlignment: MainAxisAlignment.start,
-          //    children:<Widget>[ 
-          //      Padding(padding: EdgeInsets.only(left: 10.0)),
-               
-          //     //  Text(
-          //     //       "Post Privacy :",
-          //     //       style: TextStyle(
-          //     //           color: Colors.black,
-          //     //           fontWeight: FontWeight.w100,
-          //     //           fontSize: 16.0,
-          //     //           fontFamily: 'Segoe UI'),
-          //     //     )
-          //         ],),
              FittedBox(child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -253,7 +214,7 @@ void _handleRadioValueChange1(int value) {
                   'Global',
                   style: new TextStyle(fontSize: 14.0),
                 ),
-                // Spacer(),
+                
                 new Radio(
                   value: 1,
                   groupValue: _radioValue1,
@@ -266,7 +227,7 @@ void _handleRadioValueChange1(int value) {
                     fontSize: 14.0,
                   ),
                 ),
-                // Spacer(),
+                
                 new Radio(
                   value: 2,
                   groupValue: _radioValue1,
@@ -312,17 +273,13 @@ void _handleRadioValueChange1(int value) {
             ),
             fit: BoxFit.cover,
             ),
-            //Padding(padding: EdgeInsets.only(top: 10.0),),
               Container(
               margin: EdgeInsets.fromLTRB(10,0,10,10),
                 
                 width: MediaQuery.of(context).size.width,
-               // height: 200,
-                
                     child:  type!='t'?(type=='i'?Image.file(
                     image,
-                    // height: MediaQuery.of(context).size.height / 6,
-                    //  width: MediaQuery.of(context).size.width / 6,
+                   
                   ):
                   Container(
                             child: Center(
@@ -331,8 +288,7 @@ void _handleRadioValueChange1(int value) {
                                        1.0,
                                   child: video.VideoApp(video:image)),
                             ),
-                            // decoration: BoxDecoration(
-                            //     border: Border.all(color: Colors.pink)),
+
                           )
                   
                   
@@ -343,31 +299,10 @@ void _handleRadioValueChange1(int value) {
                   ),
 
      ),
-//  Container(
-//               height: 20.0,
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     "Post Privacy",
-//                     style: TextStyle(
-//                         color: Colors.pinkAccent,
-//                         fontWeight: FontWeight.w500,
-//                         fontSize: 16.0,
-//                         fontFamily: 'Segoe UI'),
-//                   ),
-//                 ],
-//               ),
-//             ),
-          
+
           
           ],),
-         // Positioned(
 
-           // bottom: 0.0,
-            
-         
-         // ),
        ])
      ],),
       
@@ -385,7 +320,7 @@ void _handleRadioValueChange1(int value) {
 
       
       await Firestore.instance.collection("POST").document(postname).setData({
-        "body": description ??myController.text,
+        "body": description ??{myController.text??" "},
         // "url": url,
         "timestamp": DateTime.now(),
         "level": level,

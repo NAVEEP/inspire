@@ -65,7 +65,7 @@ class LoginButton extends StatelessWidget {
             );
           } else {
             return MaterialButton(
-              onPressed: () => authService.googleSignIn(),
+              onPressed: () => authService.googleSignIn(context),
               color: Colors.white,
               textColor: Colors.black,
               child: Text('Login with Google'),

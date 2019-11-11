@@ -40,7 +40,7 @@ class _MApp extends State<MyApp> {
   List<Widget> items = [];
   getprofile(String uid) async {
     // print("in get...");
-    await Firestore.instance.collection("USER").document(uid).get().then((a) {
+    await Firestore.instance.collection("USER").document(login.uid).get().then((a) {
       profile = Profile.fromDocument(a);
       ins = profile.ins;
       // print("in get profile");

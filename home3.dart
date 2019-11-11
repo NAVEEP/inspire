@@ -99,7 +99,7 @@ class FeedState extends State<Feed> {
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                      "No Posts yet .\n Start getting inspired by people to see their posts.",style: TextStyle(color: Color(0XFF9C9C9C), fontSize: 23),),
+                      "No Posts yet.\nStart getting inspired by people to see their posts.",style: TextStyle(color: Color(0XFF9C9C9C), fontSize: 23),),
                 )
               ],
             ))

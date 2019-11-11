@@ -1,20 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker_modern/image_picker_modern.dart';
 import 'MakePostA.dart' as post1;
 import 'MakePostB.dart' as post;
+import 'package:url_launcher/url_launcher.dart';
 import 'main.dart' as login;
 import 'dart:async';
-import 'package:flutter_multimedia_picker/data/MediaFile.dart';
-import 'package:flutter_multimedia_picker/fullter_multimedia_picker.dart';
+// import 'uploadvid.dart' as camera;
 import 'package:highlighter_coachmark/highlighter_coachmark.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {}
 
@@ -48,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         : null;
     state = false;
   }
-  List<Asset> images = List<Asset>();
+
   bool hide=true;
   getdata() async {
     await Firestore.instance
@@ -70,8 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
         
       }
       setState(() {
-        print(url);
-        print(a);
         print(media);
         state = true;
       });
@@ -111,7 +106,18 @@ class _MyHomePageState extends State<MyHomePage> {
                               padding:
                                   EdgeInsets.fromLTRB(16.0, 20.0, 0.0, 0.0),
                             ),
-                           
+                            Padding(
+                              padding:
+                                  EdgeInsets.fromLTRB(16.0, 15.0, 0.0, 15.0),
+                              child: Text(
+                                "3 people did",
+                                style: TextStyle(
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Segoe UI',
+                                    color: Colors.grey[800]),
+                              ),
+                            ),
                             Padding(
                               padding:
                                   EdgeInsets.fromLTRB(16.0, 15.0, 12.0, 15.0),
@@ -142,7 +148,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Padding(
                               padding: EdgeInsets.all(12.0),
-                                 child: show
+                              // padding: EdgeInsets.fromLTRB(
+                              //     MediaQuery.of(context).size.width / 2.35, 10, 0, 0),
+                              child: show
                                   ? Center(
                                       child: OutlineButton(
                                           shape: RoundedRectangleBorder(
@@ -202,7 +210,17 @@ class _MyHomePageState extends State<MyHomePage> {
               borderRadius: BorderRadius.circular(30.0),
             ),
             onPressed: () {
-             
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(builder: (context) {
+              //     return post.Persona(
+              //         cname: cname,
+              //         scat: scat,
+              //         level: level,
+              //         tag: tag,
+              //         image: image);
+              //   }),
+              // );
              _settingModalBottomSheet(context);
             },
             color: Color(0xffe73131),
@@ -220,90 +238,33 @@ class _MyHomePageState extends State<MyHomePage> {
   else return Container(height: 0.01,);
   
   }
+
   Future getImageg() async {
-     
-   var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    // .then((image){
-      Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return post.MyHome(image:image,type:'i',cname:cname,scat:scat,level:level);
-                }),
-              );
-    // });
-
-     
-  }
-  Future getImagec() async {
-  var image = await ImagePicker.pickImage(source: ImageSource.camera);
-  //  .then((image){
-     print(image);
-  Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return post.MyHome(image:image,type:'i',cname:cname,scat:scat,level:level);
-                }),
-              );
-              // });
-
-     
-  }
-  Future getvideog() async {
-    ImagePicker.pickVideo(source: ImageSource.gallery).then((image){
-     Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return post.MyHome(image:image,type:'v',cname:cname,scat:scat,level:level);
-                }),
-              );});
-
-  }
-  Future getvideoc() async {
-     ImagePicker.pickVideo(source: ImageSource.camera).then((image){ Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return post.MyHome(image:image,type:'v',cname:cname,scat:scat,level:level);
-                }),
-              );});
-
-    
-  }
- Future<void> loadAssets() async {
-    List<Asset> resultList = List<Asset>();
-    String error = 'No Error Dectected';
-
-      
-      resultList = await MultiImagePicker.pickImages(
-        maxImages: 1,
-        enableCamera: true,
-        selectedAssets: images,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        materialOptions: MaterialOptions(
-          actionBarColor: "#abcdef",
-          actionBarTitle: "Example App",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
-      var file = File(await resultList[0].filePath);
-       Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return post.MyHome(image:file,type:'i',cname:cname,scat:scat,level:level);
-                }),
-              );
-      
-      }
- Future<void> getMedia() async {
-  
- FlutterMultiMediaPicker.getImage();
-
-  
-  }
+   var tempImage;
+    //  = await ImagePicker.pickImage(source: ImageSource.gallery);
 
    
+ Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return post.MyHome(image:tempImage,type:'i',cname:cname,scat:scat,level:level);
+                }),
+              );
+  }
+  Future getImagev() async {
+   
+    // 
+    var tempImage; 
+    // = await ImagePicker.pickVideo(source: ImageSource.gallery);
 
+   
+ Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return post.MyHome(image:tempImage,type:'v',cname:cname,scat:scat,level:level);
+                }),
+              );
+  }
   void _settingModalBottomSheet(context){
     showModalBottomSheet(
       context: context,
@@ -311,7 +272,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return Container(
             child: new Wrap(
             children: <Widget>[
-          new ListTile(
+new ListTile(
             leading: new Icon(Icons.collections),
             title: new Text('Template'),
             onTap: ()  {
@@ -326,22 +287,37 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             }          
           ),
+//           new ListTile(
+//             leading: new Icon(Icons.camera_alt),
+//             title: new Text('Camera'),
+//             onTap: ()  {
+
+// Navigator.pushReplacement(
+//                 context,
+//                 MaterialPageRoute(builder: (context) {
+//                   return camera.CameraExampleHome();
+//                     //cname:cname,scat:scat,level:level);
+//                 }),
+//               );
+              
+//             },          
+//           ),
           new ListTile(
             leading: new Icon(Icons.camera),
-            title: new Text('Image '),
+            title: new Text('Image | Gallery'),
             onTap: ()  {
-                loadAssets();
-              // getImagec();
+
+              getImageg();
 
 
             }          
           ),
           new ListTile(
             leading: new Icon(Icons.videocam),
-            title: new Text('Video '),
+            title: new Text('Video | Gallery'),
             onTap: ()  {
 
-              getvideog();
+              getImagev();
 
 
             }          
@@ -354,6 +330,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
   void dolater(con) {
+
     Firestore.instance
         .collection("USER")
         .document(login.uid)
@@ -378,8 +355,7 @@ class _MyHomePageState extends State<MyHomePage> {
   });
 
 });
-    Scaffold.of(con).showSnackBar(
-      SnackBar(
+    Scaffold.of(con).showSnackBar(SnackBar(
       content: Text('Challenge added to your Stats'),
       duration: Duration(seconds: 2),
     ));
@@ -398,7 +374,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
   }
-  link() {
+   link() {
     if (url == '') {
       return Container();
     } else {

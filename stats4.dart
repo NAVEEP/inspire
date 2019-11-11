@@ -62,19 +62,19 @@ class _MyHomePageState extends State<MyHomePage> {
    void initState() {
     super.initState();
 
-   login.stats?null:  !show
-        ? Timer(Duration(seconds: 1), () {
-            show = true;
-            print("now  " + show.toString());
-            showCoachMarkFAB();
-          })
-        : null;
+  //  login.stats?null:  !show
+  //       ? Timer(Duration(seconds: 1), () {
+  //           show = true;
+  //           print("now  " + show.toString());
+  //           showCoachMarkFAB();
+  //         })
+  //       : null;
   }
   Widget build(BuildContext context) {
     b == false ? getlist() : null;
-
+  print("build");
     return WillPopScope(
-      onWillPop: () {},
+      onWillPop: (){},
       //child: MaterialApp(
         //home:
         child: Scaffold(
@@ -86,65 +86,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(color: Color(0XFF9C9C9C), fontSize: 20),
               ),
               backgroundColor: Colors.white,
-              // actions: <Widget>[
-              //   // IconButton(
-              //   //     icon: Icon(
-              //   //       Icons.search,
-              //   //       color: Color(0XFF9C9C9C),
-              //   //     ),
-              //   //     onPressed: () {
-              //   //       Navigator.push(
-              //   //         context,
-              //   //         MaterialPageRoute(
-              //   //             builder: (context) => search.SearchPage()),
-              //   //       );
-              //   //     }),
-              //   // IconButton(
-              //   //   icon: Icon(
-              //   //     Icons.notifications,
-              //   //     color: Color(0XFF9C9C9C),
-              //   //   ),
-              //   //   onPressed: () {
-              //   //     Navigator.push(
-              //   //       context,
-              //   //       MaterialPageRoute(
-              //   //           builder: (context) => notif.MyHomePage()),
-              //   //     );
-              //   //   },
-              //   // ),
-              //   InkWell(
-              //     key: fabKey,
-              //     onTap: () {
-              //       Navigator.push(
-              //         context,
-              //         new MaterialPageRoute(builder: (context) {
-              //           return self.MyApp(
-              //             uid: login.uid,
-              //           );
-              //         }),
-              //       );
-              //     },
-              //     // child: Padding(
-              //     //   padding: EdgeInsets.all(10),
-              //     //   child: ClipRRect(
-              //     //     borderRadius: BorderRadius.circular(60),
-              //     //     child: FadeInImage(image:NetworkImage(
-              //     //       login.photo),placeholder:AssetImage('assets/user.png'),
-              //     //     )
-              //     //   ),
-              //     // ),
-              //   )
-              // ],
             ),
             body: SafeArea(child:SingleChildScrollView(
-              child: check(),
+              child:
+              check(),
             )),),
-     // ),
     );
   }
 
   getlist() {
-    print("getlist");
+    // print("getlist");
 
     Firestore.instance
         .collection("USER")
@@ -155,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .then((a) {
       print("a");
       for (var doc in a.documents) {
-        print("enter for");
+        print(doc.documentID);
         DateTime d2 = doc['timestamp'].toDate();
         var diff = d1.difference(d2).inDays;
         accepted.add(lia(doc));
@@ -204,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
         comp = snap['mnum'];
       });
     });
+    print("exit");
   }
 
   func(String id) async {
@@ -224,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ListTile(
         onTap: () {
           if (doc['type'] == 's') {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {
                 return mp.Persona(
@@ -236,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
             );
           } else {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => inside.MyHomePage(
@@ -276,13 +228,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   check() {
+    print(
+      "in ccheck"
+    );
     if (b == false) {
       return Container(
         height: login.height,
         child: Center(child: Center(child: CircularProgressIndicator())),
       );
     } else
-      print(acc);
+      print("acc");
     //print(co
     return Column(
       children: <Widget>[

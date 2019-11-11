@@ -4,7 +4,6 @@ import 'challenges0.dart' as inside;
 import 'main.dart' as login;
 import 'package:highlighter_coachmark/highlighter_coachmark.dart';
 import 'dart:async';
-
 import 'package:shared_preferences/shared_preferences.dart';
 class MyHomePage extends StatefulWidget {
   final String scat, levela, levelb, levelc, leveld, levele;
@@ -320,8 +319,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   getFeed(String level, int b) async {
     // lp[b]=[];
-
-    var snap = await Firestore.instance
+var snap;
+  scat=="Guitar"? snap = await Firestore.instance
+        .collection('CHALLENGES')        
+        .where('scat', isEqualTo: scat)
+        .where('level', isEqualTo: level)
+        // .orderBy("order")
+        .getDocuments():
+        snap = await Firestore.instance
         .collection('CHALLENGES')
         .where('scat', isEqualTo: scat)
         .where('level', isEqualTo: level)

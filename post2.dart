@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:example/people_new.dart';
+// import 'package:example/people_new.dart';
 import 'package:flutter/material.dart';
 import 'profile.dart' as profile;
 import 'video3.dart' as video;
@@ -107,127 +109,101 @@ class _MyHomePageState extends State<MyHomePage> {
         child: CircularProgressIndicator(),
       );
     } else {
-      return
-      //  Container(
-      //   child:
-         Column(
-          children: [
-            Stack(
-              children: <Widget>[
-                Container(
-                  height: 170.0,
-                  width: double.infinity,
-                  color: Colors.grey[300],
-                ),
-                Positioned(
-                  top: 10.0,
-                  left: 5.0,
-                  right: 5.0,
-                  child: Material(
-                    elevation: 2.0,
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: Container(
-                      height: 250,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15, 30, 10, 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            // foregroundDecoration: BoxDecoration(shape: BoxShape.circle),
-                            width: 61.0,
-                            height: 61.0,
-                            
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 2),
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(post.user_url)),
-                            ),
+      return Container(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          color: Colors.grey[300],
+          child: Padding(
+            padding: EdgeInsets.all(3),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 2.0,
+              // borderRadius: BorderRadius.circular(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(15, 30, 10, 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: 61.0,
+                          height: 61.0,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 2),
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(post.user_url)),
                           ),
-                          Padding(
-                              padding: EdgeInsets.all(5),
-                              child: GestureDetector(
-                                onTap: () {
-                                  print(post.uid);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => profile.MyApp(
-                                              uid: post.uid,
-                                            )),
-                                  );
-                                },
-                                child: Container(
-                                    child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      post.uname,
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(5),
+                            child: GestureDetector(
+                              onTap: () {
+                                print(post.uid);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => profile.MyApp(
+                                            uid: post.uid,
+                                          )),
+                                );
+                              },
+                              child: Container(
+                                  child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    post.uname,
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Open Sans',
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: Text(
+                                      timediff(post),
                                       style: TextStyle(
-                                        fontSize: 20.0,
+                                        fontSize: 13.0,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'Open Sans',
-                                        color: Colors.grey[800],
+                                        color: Colors.grey[700],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.all(0),
-                                      child: Text(
-                                        timediff(post),
-                                        style: TextStyle(
-                                          fontSize: 13.0,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'Open Sans',
-                                          color: Colors.grey[700],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )),
+                                  ),
+                                ],
                               )),
-                          Spacer(),
-                          // Padding(
-                          //   padding: EdgeInsets.all(5),
-                          //   child: Icon(
-                          //     Icons.more_vert,
-                          //     color: Colors.black,
-                          //   ),
-                          // ),
-                        ],
-                      ),
+                            )),
+                        Spacer(),
+                      ],
                     ),
-                    post.body==""?Container(height: 5):
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      child: Text(
-                        post.body,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Segoe UI',
-                          color: Colors.grey[800],
+                  ),
+                  post.body == ""
+                      ? Container(height: 5)
+                      : Padding(
+                          padding: EdgeInsets.fromLTRB(25, 10, 10, 10),
+                          child: Text(
+                            post.body,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Segoe UI',
+                              color: Colors.grey[800],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(20, 3, 15, 3),
-                      child: 
-                      FittedBox(
-                        child:
-                      Row(
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 3, 15, 3),
+                    child: FittedBox(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
@@ -257,106 +233,83 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ],
                       ),
-                      fit:BoxFit.scaleDown,
-                      ),
+                      fit: BoxFit.scaleDown,
                     ),
-                    Material(
+                  ),
+                  Material(
                     elevation: 2.0,
-                    borderRadius: BorderRadius.circular(15.0),
-                    
-                   child: Column(children:[
-                    Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children:[
-
-                            // Placeholder(
-                            //   fallbackHeight: 200,
-                            // ),
-                          Container(//child:
-                         // PlaceHolder(
-                            // height: 150.0,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: (post.mtype == 'v')
-                                ? Container(
-                                    padding: EdgeInsets.all(10),
-                                    height: 400,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[100],
-                                      // borderRadius: BorderRadius.circular(18.0),
-                                    ),
-                                    child: video.VideoApp(url: post.media_url))
-                                // : Image.network(
-                                //     post.media_url,
-                                //     fit: BoxFit.cover,
-                                //   ),
-                                : FadeInImage(
-                                    // image: AdvancedNetworkImage(
-                                    //   post.media_url,
-                                    //   // header: header,
-                                    //   useDiskCache: true,
-                                    //   cacheRule: CacheRule(
-                                    //       maxAge: const Duration(minutes: 30)),
-                                    // ),
-                                    image:NetworkImage(post.media_url),
-                                    placeholder: AssetImage('assets/template.jpg'),
-                                    fit: BoxFit.cover,
-                                  )
-                                  ),],),
+                    borderRadius: BorderRadius.circular(0),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(0),
+                          child: Stack(
+                            children: [
+                              Container(
+                                  padding: EdgeInsets.all(0),
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(18.0),
                                   ),
-                                  Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          /*Text(
-                                                                  post.body,
-                                                                  style: TextStyle(
-                                                                    fontSize: 16.0,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontFamily: 'Segoe UI',
-                                                                    color: Colors.grey[800],
-                                                                  ),
-                                                                ),*/
-                          // SizedBox(
-                          //   height: 8.0,
-                          // ),
-                          Container(
-                              height: 1.0,
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.grey[300]),
-                        ],
-                      ),
+                                  child: (post.mtype == 'v')
+                                      ? Container(
+                                          padding: EdgeInsets.all(0),
+                                          height: 400,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[100],
+                                          ),
+                                          child: video.VideoApp(
+                                              url: post.media_url))
+                                      : FadeInImage(
+                                          image: NetworkImage(post.media_url),
+                                          placeholder:
+                                              AssetImage('assets/template.jpg'),
+                                          fit: BoxFit.cover,
+                                        )),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  height: 1.0,
+                                  width: MediaQuery.of(context).size.width,
+                                  color: Colors.grey[300]),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20.0, 0.0, 20.0, 15.0),
+                                  child: row(post, current),
+                                ),
+                              ],
+                            )),
+                      ],
                     ),
-                    Padding(
-                        padding: EdgeInsets.all(0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 20.0, 15.0),
-                              child: row(post, current),
-                            ),
-                          ],
-                        )),],),)
-                  ],
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
-          ],
-         )
-      // ,)
-      ;
+          ),
+        
+      );
     }
   }
 
   void rat(Post post) {
+    print(ating.toString());
     double tot;
     int toot;
     tot = post.dou * post.nopr;
@@ -375,15 +328,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     Firestore.instance.collection("RATING").add(
         {"user": login.uid, "post": snaps.documentID, "rating": ating.round()});
-
+    print('The post has been  rated');
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text('The post has been  rated'),
       duration: Duration(seconds: 2),
     ));
-
-    setState(() {
-      reveal = !reveal;
-    });
   }
 
   row(Post post, double curre) {
@@ -395,29 +344,27 @@ class _MyHomePageState extends State<MyHomePage> {
         // star(),
         // extended(),
         // extended1(post),
-        Container(child:Column(
-
+        Container(
+            child: Column(
           children: <Widget>[
-              Icon(
-          Icons.star,
-          size: 33,
-          color: Colors.grey[500],
-        ),
-    Text(
-          curre.toString(),
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Open Sans',
-            color: Colors.grey[600],
-          ),
-        ),
-          extended(),
-          extended1(post)
-
+          (!reveal)?  Icon(
+              Icons.star,
+              size: 33,
+              color: Colors.grey[500],
+            ):Container(),
+           (!reveal)? Text(
+              curre.toString(),
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Open Sans',
+                color: Colors.grey[600],
+              ),
+            ):Container(),
+            extended(post),
           ],
         )),
-        
+        extended1(post)
       ],
     );
   }
@@ -437,70 +384,94 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  extended() {
+  extended(post) {
     if (!reveal) {
       return Container();
     } else {
       return SmoothStarRating(
         borderColor: Colors.grey[600],
-       // color: Color(0xffffbf00),
-      color: Color(0xff2284a1),
+        // color: Color(0xffffbf00),
+        color: Color(0xff2284a1),
         allowHalfRating: false,
         rating: ating,
         size: 40.0,
         starCount: 5,
         spacing: 2.0,
-        onRatingChanged: (value) {
+        onRatingChanged: (value) async {
           setState(() {
             ating = value;
           });
+
+     Timer(Duration(seconds: 1), (){
+
+           setState(() {
+          reveal = !reveal;
+        });
+         });
+           print("ontap");
+        
+        final QuerySnapshot result = await Firestore.instance
+            .collection('RATING')
+            .where('user', isEqualTo: login.uid)
+            .where('post', isEqualTo: post.id)
+            .limit(1)
+            .getDocuments();
+        final List<DocumentSnapshot> documents = result.documents;
+        if (documents.length == 1) {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('You  have already Rated this post'),
+            duration: Duration(seconds: 2),
+          ));
+          print("nope");
+        } else {
+          rat(post);
+        }
+
+
+
+
         },
       );
     }
   }
 
   extended1(Post post) {
-    // if (!reveal) {
-    //   return Container();
-    // } else
-      return GestureDetector(
-        onTap: () async {
-          print("ontap");
-          final QuerySnapshot result = await Firestore.instance
-              .collection('RATING')
-              .where('user', isEqualTo: login.uid)
-              .where('post', isEqualTo: post.id)
-              .limit(1)
-              .getDocuments();
-          final List<DocumentSnapshot> documents = result.documents;
-          if (documents.length == 1) {
-            Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text('You  have already Rated this post'),
-              duration: Duration(seconds: 2),
-            ));
-          } else {
-            rat(post);
-          }
-          //     ((a) {
-          //       print(a.documents.isEmpty);
-          //   exist = a.documents.isEmpty;
-          // });
-          // await print(exist);print("here");
-          // if (d) {print("exiiiists");}
-          //     else{print(d);print("check");print(login.uid);print(snaps.documentID);
-          //    // rat(post);
-          //     }
-        },
-        child:Text(
-          "RATE",
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Open Sans',
-            color: Colors.grey[600],
-          ),
+    if (reveal) {
+      return Container();
+    }
+    return GestureDetector(
+      onTap: () async {
+        print("ontap");
+        setState(() {
+          reveal = !reveal;
+        });
+        final QuerySnapshot result = await Firestore.instance
+            .collection('RATING')
+            .where('user', isEqualTo: login.uid)
+            .where('post', isEqualTo: post.id)
+            .limit(1)
+            .getDocuments();
+        final List<DocumentSnapshot> documents = result.documents;
+        if (documents.length == 1) {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('You  have already Rated this post'),
+            duration: Duration(seconds: 2),
+          ));
+          print("nope");
+        } else {
+          rat(post);
+        }
+      },
+      child: Text(
+        "RATE",
+        style: TextStyle(
+          fontSize: 14.0,
+          fontWeight: FontWeight.w500,
+          fontFamily: 'Open Sans',
+          color: Colors.grey[600],
         ),
-      );
+      ),
+    );
   }
 
   timediff(post) {
@@ -511,7 +482,6 @@ class _MyHomePageState extends State<MyHomePage> {
     if (th < 24) {
       if (th == 0)
         return "just now";
-
       else if (th == 1)
         return "1 hour ago";
       else
